@@ -4,10 +4,10 @@ from PIL import ImageTk, Image
 #This creates the main window of an application
 window = tk.Tk()
 window.title("You are in a hallway")
-window.geometry("1200x627")
+window.geometry("1200x627")#image resolution, later will be adjusted
 window.configure(background='grey')
 
-path = "\\Users\\Jared\\Desktop\\hallway.jpg"
+path = "\\Users\\Jared\\Desktop\\hallway.jpg"#or whatever image path you have
 
 #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
 img = ImageTk.PhotoImage(Image.open(path))
