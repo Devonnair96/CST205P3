@@ -1,9 +1,9 @@
-
+#comment
 from tkinter import *
 from PIL import ImageTk, Image
 
 
-
+#hi my name is siddarth krishnan. I love to play tennis.
 def Dragon_Door():
     button1.destroy()
     button2.destroy()
