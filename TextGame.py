@@ -22,6 +22,50 @@ def ClearScreen():
     label2.destroy()
     label3.destroy()
 
+def reset():
+    frame.pack_forget()
+    createDoors(numberOfDoors2)
+
+def createRooms(img1, img2):
+    frame.pack()
+    pathToImage1 = Image.open("/Users/siddarthkrishnan/Desktop/" + img1)
+    pathToImage2 = Image.open("/Users/siddarthkrishnan/Desktop/" + img2)
+    photoImage1 = ImageTk.PhotoImage(pathToImage1)
+    photoImage2 = ImageTk.PhotoImage(pathToImage2)
+    label1 = Label(frame,image = photoImage1)
+    label1.image = photoImage1
+    label1.pack(side = RIGHT)
+    label2 = Label(frame,image= photoImage2)
+    label2.image = photoImage2
+    label2.pack(side = RIGHT)
+    button1 = Button(frame, command = reset)
+    button1.pack(side = RIGHT)
+    button2 = Button(frame, command = reset)
+    button2.pack(side = RIGHT)
+    
+    
+     
+
+
+def staffRoom():
+    createRooms("firestaff.jpg", "WaterStaff.jpg")
+    
+    
+
+
+def topRoom():
+    createRooms("firetop.jpg", "waterRobe.jpg")
+
+
+def wizardHatRoom():
+    createRooms("waterHat.jpg", "FireHat.jpg")
+
+
+def bottomRoom():
+    createRooms("fireRobe.jpg", "waterBottom.jpg")
+
+
+
 
     
 
@@ -29,24 +73,48 @@ def ClearScreen():
 def DoorUpdate():
     numberOfDoors1 = numberOfTimesDecremented
 
+    global numberOfDoors2
     numberOfDoors2 = numberOfDoors1  - 1
 
-     
-        
+    randomArray = [1,2,3,4]
+    randomNumber = random.choice(randomArray)
+
+    if randomNumber == 1:
+        messagebox.showinfo("You have entered the staff room")
+        frame.pack_forget()
+        randomArray.remove(randomNumber)
+        staffRoom()
+    if randomNumber == 2:
+        messagebox.showinfo("You have entered the top room")
+        frame.pack_forget()
+        randomArray.remove(randomNumber)
+        topRoom()
+    if randomNumber == 3:
+        messagebox.showinfo("You have entered the bottom room")
+        frame.pack_forget()
+        randomArray.remove(randomNumber)
+        bottomRoom()
+    if randomNumber == 4:
+        messagebox.showinfo("You have entered the hat room")
+        frame.pack_forget()
+        randomArray.remove(randomNumber)
+        wizardHatRoom()
+    
+   
 
     
-        
-        
 
     
-    frame.destroy()
+    
+   
+    
+
+  
 
     
 
-    createDoors(numberOfDoors2)
 
 
-    
 
    
         
