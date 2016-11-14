@@ -23,25 +23,32 @@ def ClearScreen():
     label3.destroy()
 
 def reset():
-    frame.pack_forget()
+    frame1.pack_forget()
     createDoors(numberOfDoors2)
 
 def createRooms(img1, img2):
-    frame.pack()
+    
+    
+
+    global frame1
+    frame1 = Frame(newWindow)
+    frame1.pack()
+   
+    
     pathToImage1 = Image.open("/Users/siddarthkrishnan/Desktop/" + img1)
     pathToImage2 = Image.open("/Users/siddarthkrishnan/Desktop/" + img2)
     photoImage1 = ImageTk.PhotoImage(pathToImage1)
     photoImage2 = ImageTk.PhotoImage(pathToImage2)
-    label1 = Label(frame,image = photoImage1)
+    label1 = Label(frame1,image = photoImage1)
     label1.image = photoImage1
     label1.pack(side = RIGHT)
-    label2 = Label(frame,image= photoImage2)
+    label2 = Label(frame1,image= photoImage2)
     label2.image = photoImage2
     label2.pack(side = RIGHT)
-    button1 = Button(frame, command = reset)
-    button1.pack(side = RIGHT)
-    button2 = Button(frame, command = reset)
-    button2.pack(side = RIGHT)
+    button1 = Button(frame1, command = reset)
+    button1.pack()
+    button2 = Button(frame1, command = reset)
+    button2.pack()
     
     
      
@@ -67,16 +74,18 @@ def bottomRoom():
 
 
 
-    
+randomArray = [1,2,3,4]
 
 
 def DoorUpdate():
+    
+    
     numberOfDoors1 = numberOfTimesDecremented
 
     global numberOfDoors2
     numberOfDoors2 = numberOfDoors1  - 1
 
-    randomArray = [1,2,3,4]
+    
     randomNumber = random.choice(randomArray)
 
     if randomNumber == 1:
@@ -212,7 +221,3 @@ button3.pack()
 
     
                     
-
-
-    
-
