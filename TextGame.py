@@ -2,6 +2,8 @@ from tkinter import *
 import time
 from tkinter import messagebox
 import random
+import winsound
+
 
 from PIL import ImageTk, Image
 
@@ -79,21 +81,25 @@ def DoorUpdate():
 
     if randomNumber == 1:
         messagebox.showinfo("You have entered the staff room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         frame.pack_forget()
         randomArray.remove(randomNumber)
         staffRoom()
     if randomNumber == 2:
         messagebox.showinfo("You have entered the top room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         frame.pack_forget()
         randomArray.remove(randomNumber)
         topRoom()
     if randomNumber == 3:
         messagebox.showinfo("You have entered the bottom room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         frame.pack_forget()
         randomArray.remove(randomNumber)
         bottomRoom()
     if randomNumber == 4:
         messagebox.showinfo("You have entered the hat room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         frame.pack_forget()
         randomArray.remove(randomNumber)
         wizardHatRoom()
@@ -181,6 +187,7 @@ def WizardDoor():
                           
  
     messagebox.showinfo("wizard door", "You have entered the Wizard door! Choose another door and this will lead you to either the hat door, the top door, the robe door, or the staff door.")
+    winsound.PlaySound('door.wav',winsound.SND_ALIAS)
     createDoors(4)
 
 
