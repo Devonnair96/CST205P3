@@ -2,9 +2,8 @@ from tkinter import *
 import time
 from tkinter import messagebox
 import random
-
+import smtplib
 from PIL import ImageTk, Image
-
 
 def ClearScreen():
     button1.destroy()
@@ -13,7 +12,8 @@ def ClearScreen():
     label1.destroy()
     label2.destroy()
     label3.destroy()
-
+    textLabel.destroy()
+    entry.destroy()
 def reset():
     frame1.pack_forget()
     if (choice == 1):
@@ -135,41 +135,76 @@ def RangerDoorUpdate():
     global numberOfDoors2
     numberOfDoors2 = numberOfDoors1  - 1
     randomNumber = random.choice(randomArray)
-
     if randomNumber == 1:
-        messagebox.showinfo("You have entered the bow room") #placeholder
+        messagebox.showinfo("You have entered the bow room")
         frame.pack_forget()
         randomArray.remove(randomNumber)
         bowRoom()
     if randomNumber == 2:
-        messagebox.showinfo("You have entered the torso room") #placeholder
+        messagebox.showinfo("You have entered the torso room")
         frame.pack_forget()
         randomArray.remove(randomNumber)
         torsoRoom()
     if randomNumber == 3:
-        messagebox.showinfo("You have entered the leggings room")#placeholder
+        messagebox.showinfo("You have entered the leggings room")
         frame.pack_forget()
         randomArray.remove(randomNumber)
         leggingsRoom()
     if randomNumber == 4:
-        messagebox.showinfo("You have entered the hat room")#placeholder
+        messagebox.showinfo("You have entered the hat room")
         frame.pack_forget()
         randomArray.remove(randomNumber)
         RangerHatRoom()
 
 def WizardDoor():
+    global userEmail
+    userEmail = entry.get()
+    try:
+        gameserver  =  smtplib.SMTP('smtp.gmail.com',587)
+        gameserver.ehlo()
+    except:
+        print ("There was a problem")
+    gameserver.starttls()
+    password = getpass.getpass("Enter your password: ")
+    gameserver.login( userEmail, password) # the user sends the results to themselves
+    gameserver.sendmail( userEmail, userEmail, "Hello player") #placeholder until results are ready
+    gameserver.quit()
     ClearScreen()
     global choice
     choice = 1
     messagebox.showinfo("wizard door", "You have entered the Wizard door! Choose another door and this will lead you to either the hat door, the top door, the robe door, or the staff door.")
     WizardCreateDoors(4)
 def WarriorDoor():
+    global userEmail
+    userEmail = entry.get()
+    try:
+        gameserver  =  smtplib.SMTP('smtp.gmail.com',587)
+        gameserver.ehlo()
+    except:
+        print("There was a problem")
+    gameserver.starttls()
+    password = getpass.getpass("Enter your password: ")
+    gameserver.login( userEmail, password) # the user sends the results to themselves
+    gameserver.sendmail( userEmail, userEmail, "Hello player") #placeholder until results are ready
+    gameserver.quit()
     ClearScreen()
     global choice
     choice = 2
     messagebox.showinfo("warrior door", "You have entered the Warrior door! Choose another door and this will lead you to either the helm door, the chest door, the greaves door, or the sword door.")
     WarriorCreateDoors(4)
 def RangerDoor():
+    global userEmail
+    userEmail = entry.get()
+    try:
+        gameserver  =  smtplib.SMTP('smtp.gmail.com',587)
+        gameserver.ehlo()
+    except:
+        print("There was a problem")
+    gameserver.starttls()
+    password = getpass.getpass("Enter your password: ")
+    gameserver.login( userEmail, password) # the user sends the results to themselves
+    gameserver.sendmail( userEmail, userEmail, "Hello player") #placeholder until results are ready
+    gameserver.quit()
     ClearScreen()
     global choice
     choice = 3
@@ -229,6 +264,11 @@ def RangerCreateDoors(numberOfDoors):
         numberOfTimesDecremented = numberOfTimesDecremented + 1
 
 newWindow = Tk()
+mytext = StringVar()
+entry = Entry(newWindow, textvariable = mytext)
+entry.pack(side = BOTTOM)
+textLabel = Label(newWindow, text = "Enter your email")
+textLabel.pack(side = BOTTOM)
 img1 = Image.open("door5.jpg")
 img2 = ImageTk.PhotoImage(img1)
 label1 = Label(newWindow, image = img2)
