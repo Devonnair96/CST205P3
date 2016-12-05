@@ -3,7 +3,7 @@ import time
 from tkinter import messagebox
 import random
 import winsound
-
+winsound.PlaySound('gamemusic.wav',winsound.SND_ALIAS) #Game music sound
 
 from PIL import ImageTk, Image
 
