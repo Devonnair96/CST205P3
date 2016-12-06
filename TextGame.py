@@ -16,9 +16,9 @@ def ClearScreen():
     button1.destroy()
     button2.destroy()
     button3.destroy()
-    label1.destroy()
-    label2.destroy()
-    label3.destroy()
+    #label1.destroy()
+    #label2.destroy()
+    #label3.destroy()
     textLabel.destroy()
     entry.destroy()
 def reset():
@@ -38,21 +38,23 @@ def createRooms(img1, img2):
     pathToImage2 = Image.open(img2)
     photoImage1 = ImageTk.PhotoImage(pathToImage1)
     photoImage2 = ImageTk.PhotoImage(pathToImage2)
-    label1 = Label(frame1,image = photoImage1)
-    label1.image = photoImage1
-    label1.pack(side = RIGHT)
-    label2 = Label(frame1,image= photoImage2)
-    label2.image = photoImage2
-    label2.pack(side = RIGHT)
+    #label1 = Label(frame1,image = photoImage1)
+    #label1.image = photoImage1
+    #label1.pack(side = RIGHT)
+    #label2 = Label(frame1,image= photoImage2)
+    #label2.image = photoImage2
+    #label2.pack(side = RIGHT)
     if gold >= 250:
-        button1 = Button(frame1, command = resetGold)
+        button1 = Button(frame1, image = photoImage1, text = "Gold Price: 250", compound = BOTTOM, command = resetGold)
+        button1.photoImage1 = photoImage1
         button1.pack(side = RIGHT)
-    button2 = Button(frame1, command = reset)
+    button2 = Button(frame1, image = photoImage2, text = "Gold Price: 0", compound = BOTTOM ,command = reset)
+    button2.photoImage2 = photoImage2
     button2.pack(side = RIGHT)
-    costlabel = Label(frame1, text = "Gold Price: 0")
-    costlabel.pack(side = LEFT)
-    costlabel2 = Label(frame1, text = "Gold Price: 250")
-    costlabel2.pack(side = RIGHT)
+#    costlabel = Label(frame1, text = "Gold Price: 0")
+    #costlabel.pack(side = LEFT)
+    #costlabel2 = Label(frame1, text = "Gold Price: 250")
+    #costlabel2.pack(side = RIGHT)
 
 def staffRoom():
     createRooms("waterstaff1.jpg", "fireStaff1.jpg")
@@ -291,10 +293,11 @@ def WizardCreateDoors(numberOfDoors):
     frame.pack()
     while numberOfDoors != 0:
         global labelx
-        labelx = Label(frame, image = img2)
-        labelx.pack(side = RIGHT)
+        #labelx = Label(frame, image = img2)
+        #labelx.pack(side = RIGHT)
         global button1
-        button1 = Button(frame, command = WizardDoorUpdate)
+        button1 = Button(frame, image = img6,command = WizardDoorUpdate)
+        button1.img6 = img6
         button1.pack(side = RIGHT)
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
@@ -313,10 +316,11 @@ def WarriorCreateDoors(numberOfDoors):
     frame.pack()
     while numberOfDoors != 0:
         global labelx
-        labelx = Label(frame, image = img2)
-        labelx.pack(side = RIGHT)
+        #labelx = Label(frame, image = img2)
+        #labelx.pack(side = RIGHT)
         global button2
-        button2 = Button(frame, command = WarriorDoorUpdate)
+        button2 = Button(frame, image = img6,command = WarriorDoorUpdate)
+        button2.img6 = img6
         button2.pack(side = RIGHT)
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
@@ -335,10 +339,11 @@ def RangerCreateDoors(numberOfDoors):
     frame.pack()
     while numberOfDoors != 0:
         global labelx
-        labelx = Label(frame, image = img2)
-        labelx.pack(side = RIGHT)
+        #labelx = Label(frame, image = img2)
+        #labelx.pack(side = RIGHT)
         global button2
-        button2 = Button(frame, command = RangerDoorUpdate)
+        button2 = Button(frame, image = img6, command = RangerDoorUpdate)
+        button2.img6 = img6
         button2.pack(side = RIGHT)
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
@@ -361,16 +366,19 @@ wizardImg = Image.open("wizard.png")
 wizardImg2 = ImageTk.PhotoImage(wizardImg)
 rangerImg = Image.open("ranger.jpg")
 rangerImg2 = ImageTk.PhotoImage(rangerImg)
-label1 = Label(newWindow, image = wizardImg2)
-label1.pack(side = RIGHT)
-label2 = Label(newWindow, image = warriorImg2)
-label2.pack(side = RIGHT)
-label3 = Label(newWindow, image = rangerImg2)
-label3.pack(side = RIGHT)
+#label1 = Label(newWindow, image = wizardImg2)
+#label1.pack(side = RIGHT)
+#label2 = Label(newWindow, image = warriorImg2)
+#label2.pack(side = RIGHT)
+#label3 = Label(newWindow, image = rangerImg2)
+#label3.pack(side = RIGHT)
 wizardDoorCount = 4
-button1 = Button(newWindow, text = "WIZARD", command = WizardDoor)
-button1.pack(side = BOTTOM)
-button2 = Button(newWindow, text = "WARRIOR", command = WarriorDoor)
-button2.pack(side = BOTTOM)
-button3 = Button(newWindow, text = "RANGER", command = RangerDoor)
-button3.pack(side = BOTTOM)
+button1 = Button(newWindow, text = "WIZARD", image = wizardImg2, compound = BOTTOM ,command = WizardDoor)
+button1.wizardImg2 = wizardImg2
+button1.pack(side = RIGHT)
+button2 = Button(newWindow, text = "WARRIOR", image = warriorImg2, compound = BOTTOM, command = WarriorDoor)
+button2.warriorImg2 = warriorImg2
+button2.pack(side = RIGHT)
+button3 = Button(newWindow, text = "RANGER", image = rangerImg2, compound = BOTTOM, command = RangerDoor)
+button3.rangerImg2 = rangerImg2
+button3.pack(side = RIGHT)
