@@ -24,8 +24,8 @@ def createRooms(img1, img2):
     frame1.pack()
    
     
-    pathToImage1 = Image.open("/Users/Devon G Nair/Desktop/CST205-P3/" + img1)
-    pathToImage2 = Image.open("/Users/Devon G Nair/Desktop/CST205-P3/" + img2)
+    pathToImage1 = Image.open(img1)
+    pathToImage2 = Image.open(img2)
     photoImage1 = ImageTk.PhotoImage(pathToImage1)
     photoImage2 = ImageTk.PhotoImage(pathToImage2)
     label1 = Label(frame1,image = photoImage1)
@@ -97,29 +97,7 @@ def DoorUpdate():
         frame.pack_forget()
         randomArray.remove(randomNumber)
         wizardHatRoom()
-    
-   
 
-    
-
-    
-    
-   
-    
-
-  
-
-    
-
-
-
-
-   
-        
-
-    
-
-    
 
     
 
@@ -150,44 +128,15 @@ def createDoors(numberOfDoors):
         numberOfTimesDecremented = numberOfTimesDecremented + 1
 
    
-    
-
-        
-
-
-
-
-    
-
-
-
-    
-
-
-
-        
-
-        
-    
-    
-    
-
 
 
 def WizardDoor():
-    ClearScreen()
-    
- 
-                          
+    ClearScreen()           
  
     messagebox.showinfo("wizard door", "You have entered the Wizard door! Choose another door and this will lead you to either the hat door, the top door, the robe door, or the staff door.")
     createDoors(4)
 
 
-                             
-   
-    
-    
     
 
 newWindow = Tk()
