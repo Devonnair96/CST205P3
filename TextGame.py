@@ -4,6 +4,8 @@ from tkinter import messagebox
 import random
 import smtplib
 import getpass
+import winsound
+winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
 from PIL import ImageTk, Image
 gold = 500
 def resetGold():
@@ -24,6 +26,7 @@ def ClearScreen():
 def reset():
     goldLabel.destroy()
     frame1.pack_forget()
+    #winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
     if (choice == 1):
         WizardCreateDoors(numberOfDoors2)
     if (choice == 2):
@@ -51,7 +54,8 @@ def createRooms(img1, img2):
     button2 = Button(frame1, image = photoImage2, text = "Gold Price: 0", compound = BOTTOM ,command = reset)
     button2.photoImage2 = photoImage2
     button2.pack(side = RIGHT)
-#    costlabel = Label(frame1, text = "Gold Price: 0")
+    #winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
+    #costlabel = Label(frame1, text = "Gold Price: 0")
     #costlabel.pack(side = LEFT)
     #costlabel2 = Label(frame1, text = "Gold Price: 250")
     #costlabel2.pack(side = RIGHT)
@@ -91,12 +95,12 @@ def WizardDoorUpdate():
 
     global numberOfDoors2
     numberOfDoors2 = numberOfDoors1  - 1
-
     randomNumber = random.choice(randomArray)
     goldFind = random.choice(randomGold)
 
     if randomNumber == 1:
         messagebox.showinfo("You have entered the staff room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -106,6 +110,7 @@ def WizardDoorUpdate():
         staffRoom()
     if randomNumber == 2:
         messagebox.showinfo("You have entered the top room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -115,6 +120,7 @@ def WizardDoorUpdate():
         topRoom()
     if randomNumber == 3:
         messagebox.showinfo("You have entered the bottom room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -124,6 +130,7 @@ def WizardDoorUpdate():
         bottomRoom()
     if randomNumber == 4:
         messagebox.showinfo("You have entered the hat room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -141,6 +148,7 @@ def WarriorDoorUpdate():
     goldFind = random.choice(randomGold)
     if randomNumber == 1:
         messagebox.showinfo("You have entered the sword room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -150,6 +158,7 @@ def WarriorDoorUpdate():
         swordRoom()
     if randomNumber == 2:
         messagebox.showinfo("You have entered the chest room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -159,6 +168,7 @@ def WarriorDoorUpdate():
         chestRoom()
     if randomNumber == 3:
         messagebox.showinfo("You have entered the greaves room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -168,6 +178,7 @@ def WarriorDoorUpdate():
         legsRoom()
     if randomNumber == 4:
         messagebox.showinfo("You have entered the helm room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -185,6 +196,7 @@ def RangerDoorUpdate():
     goldFind = random.choice(randomGold)
     if randomNumber == 1:
         messagebox.showinfo("You have entered the bow room")
+        winsound.PlaySound('door.wav', winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -194,6 +206,7 @@ def RangerDoorUpdate():
         bowRoom()
     if randomNumber == 2:
         messagebox.showinfo("You have entered the torso room")
+        winsound.PlaySound('door.wav', winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -203,6 +216,7 @@ def RangerDoorUpdate():
         torsoRoom()
     if randomNumber == 3:
         messagebox.showinfo("You have entered the leggings room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -212,6 +226,7 @@ def RangerDoorUpdate():
         leggingsRoom()
     if randomNumber == 4:
         messagebox.showinfo("You have entered the hat room")
+        winsound.PlaySound('door.wav',winsound.SND_ALIAS)
         if goldFind == 1:
             global gold
             messagebox.showinfo("You also found 250 gold in the room")
@@ -279,6 +294,7 @@ def RangerDoor():
     RangerCreateDoors(4)
 
 def WizardCreateDoors(numberOfDoors):
+    #winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
     goldamount = StringVar()
     goldamount.set("Gold: " + str(gold))
     global goldLabel
@@ -302,6 +318,7 @@ def WizardCreateDoors(numberOfDoors):
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
 def WarriorCreateDoors(numberOfDoors):
+    #winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
     goldamount = StringVar()
     goldamount.set("Gold: " + str(gold))
     global goldLabel
@@ -325,6 +342,7 @@ def WarriorCreateDoors(numberOfDoors):
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
 def RangerCreateDoors(numberOfDoors):
+    #winsound.PlaySound('gamemusic.wav', winsound.SND_ASYNC)
     goldamount = StringVar()
     goldamount.set("Gold: " + str(gold))
     global goldLabel
