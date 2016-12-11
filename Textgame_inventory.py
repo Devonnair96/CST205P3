@@ -4,6 +4,8 @@ from tkinter import messagebox
 import random
 import smtplib
 import getpass
+import pyaudio
+import sys
 from PIL import ImageTk, Image
 gold = 500
 def gameOver():
@@ -341,7 +343,21 @@ def createRooms(item1, item2, itemChoice):
     #costlabel.pack(side = LEFT)
     #costlabel2 = Label(frame1, text = "Gold Price: 250")
     #costlabel2.pack(side = RIGHT)
+chunk = 1024
+wf = wave.open('gamemusic.wav', 'rb')
+p = pyaudio.PyAudio()
 
+stream = p.open(
+    format = p.get_format_from_width(wf.getsampwidth()),
+    channels = wf.getnchannels(),
+    rate = wf.getframerate(),
+    output = True)
+data = wf.readframes(chunk)
+
+while data != '':
+    stream.write(data)
+    data = wf.readframes(chunk)
+    
 def staffRoom():
     createRooms("waterstaff1.jpg", "fireStaff1.jpg", "staff")
 def topRoom():
