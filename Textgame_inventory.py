@@ -5,6 +5,7 @@ import random
 import smtplib
 import getpass
 import pyaudio
+import winsound
 import sys
 from PIL import ImageTk, Image
 gold = 500
@@ -235,63 +236,87 @@ def inventory(item, choose):
     global head, chest, legs, weapon
     if(item == "staff"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "waterstaff"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "firestaff"
     if(item == "wiztop"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "FireShirt"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "WaterShirt"
     if(item == "wizhat"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             head = "Fire Hat"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             head = "Water Hat"
     if(item == "wizlegs"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Fire Pants"
         elif(choose ==2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Water Pants"
     if(item == "sword"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "Enchanted Sword"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "Broadsword"
     if(item == "boots"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Enchanted Leggings"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Armored Leggings"
     if(item == "chestplate"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "Enchanted Chestplate"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "Steel Chestplate"
     if(item == "helm"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
              head = "Enchanted Helm"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             head = "Steel Helm"
     if(item == "bow"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "Enchanted Bow"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             weapon = "Compound Bow"
     if(item == "archerhat"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             head = "Enchanted Hat"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             head = "Archer's Hat"
     if(item == "archerpants"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Enchanted Pants"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             legs = "Archer's Pants"
     if(item == "archershirt"):
         if(choose == 1):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "Enchanted Shirt"
         elif(choose == 2):
+            winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "Archer's Shirt"
 
 def resetGold(item, choose):
@@ -443,36 +468,44 @@ def WarriorDoorUpdate():
     goldFind = random.choice(randomGold)
     if randomNumber == 1:
         messagebox.showinfo("Sword","You have entered the sword room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         swordRoom()
     if randomNumber == 2:
         messagebox.showinfo("Chest","You have entered the chest room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         chestRoom()
     if randomNumber == 3:
         messagebox.showinfo("Leggings","You have entered the leggings room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         legsRoom()
     if randomNumber == 4:
         messagebox.showinfo("Helm","You have entered the helm room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
@@ -487,36 +520,44 @@ def RangerDoorUpdate():
     goldFind = random.choice(randomGold)
     if randomNumber == 1:
         messagebox.showinfo("Bow","You have entered the bow room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         bowRoom()
     if randomNumber == 2:
         messagebox.showinfo("Torso","You have entered the shirt room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         torsoRoom()
     if randomNumber == 3:
         messagebox.showinfo("Leggings","You have entered the legging's room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
         leggingsRoom()
     if randomNumber == 4:
         messagebox.showinfo("Hat","You have entered the hat room")
+        winsound.PlaySound('door.wav', winsound.SND_ASYNC)
         if goldFind == 1:
             global gold
             messagebox.showinfo("Gold!!!","You have also found gold in this room")
+            winsound.PlaySound('money.wav', winsound.SND_ASYNC)
             gold = gold + 250
         frame.pack_forget()
         randomArray.remove(randomNumber)
@@ -527,18 +568,21 @@ def WizardDoor():
     global choice
     choice = 1
     messagebox.showinfo("wizard door", "You have entered the Wizard door! Choose another door and this will lead you to either the hat door, the top door, the robe door, or the staff door.")
+    winsound.PlaySound('door.wav', winsound.SND_ASYNC)
     WizardCreateDoors(4)
 def WarriorDoor():
     ClearScreen()
     global choice
     choice = 2
     messagebox.showinfo("warrior door", "You have entered the Warrior door! Choose another door and this will lead you to either the helm door, the chest door, the greaves door, or the sword door.")
+    winsound.PlaySound('door.wav', winsound.SND_ASYNC)
     WarriorCreateDoors(4)
 def RangerDoor():
     ClearScreen()
     global choice
     choice = 3
     messagebox.showinfo("ranger door", "You have entered the Ranger door! Choose another door and this will lead you to either the hat door, the torso door, the leggings door, or the bow door.")
+    winsound.PlaySound('door.wav', winsound.SND_ASYNC)
     RangerCreateDoors(4)
 
 def WizardCreateDoors(numberOfDoors):
@@ -617,6 +661,7 @@ goldamount = StringVar()
 goldamount.set("Gold: " + str(gold))
 global goldLabel
 messagebox.showinfo("Welcome Adventurer!", "There's a nasty dragon at the end of this dungeon that we need you to clear out. Here is 500 gold, you can buy equipment in the rooms beyond to help you with your battle. Better equipment costs more gold. Good luck and remember, we're all counting on you...")
+winsound.PlaySound('money.wav', winsound.SND_ASYNC)
 goldLabel = Label(newWindow, textvariable = goldamount)
 img1 = Image.open("door5.jpg")
 img2 = ImageTk.PhotoImage(img1)
