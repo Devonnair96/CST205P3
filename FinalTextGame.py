@@ -10,30 +10,14 @@ import sys
 import wave
 import pyglet
 from PIL import ImageTk, Image
-
-'''
-chunk = 1024
-wf = wave.open('gamemusic.wav', 'rb')
-                
-p = pyaudio.PyAudio()
-
-stream = p.open(
-    format = p.get_format_from_width(wf.getsampwidth()),
-        channels = wf.getnchannels(),
-        rate = wf.getframerate(),
-        output = True)
-data = wf.readframes(chunk)
-
-while data != '':
-    stream.write(data)
-    data = wf.readframes(chunk)
-'''
-gold = 500
+#all music and sound effects coded by Ian and Siddarth
+#gameOver coded by Jared
 def gameOver():
     frame4.pack_forget()
+    global frame5
     frame5 = Frame(newWindow)
     frame5.pack()
-    global dragonHealth,playerHealth, turnNumber
+    global dragonHealth,playerHealth, turnNumber, entry
     win = "Congratulations! You defeated the dragon!"
     lose = "The dragon burnt you to a crisp and ate you"
     if (dragonHealth <= 0):
@@ -44,32 +28,58 @@ def gameOver():
     emailLabel = Label(frame5, text = "Enter your email if you want the results of your adventure")
     emailLabel.grid(row = 2)
     myemail = StringVar()
-    global entry
     entry = Entry(frame5, textvariable = myemail)
     entry.grid(row = 2, column = 1)
-    sendButton = Button(frame5, text = "Send Email", command = sendEmail)
+    sendButton = Button(frame5, text = "Send Email", command = textEmail)
     sendButton.grid(row = 1, column =1)
-def sendEmail():
-    global head, chest, legs, weapon, userEmail, turnNumber, playerHealth, dragonHealth, userEmail, entry
+    endLabel = Label(frame5, text = "If not, thanks for playing!")
+    endLabel.grid(row = 3)
+    endButton = Button(frame5, text = "Exit", command = Endgame)
+    endButton.grid(row = 3, column = 1)
+#coded by Jared
+def textEmail():
+    global head, chest, legs, weapon, userEmail, turnNumber, playerHealth, dragonHealth, userEmail, entry, gold, emailText
     userEmail = entry.get()
     emailText = ""
     turnText= str(turnNumber)
     if(dragonHealth <= 0):
-        emailText = "Congratulations on beating the dragon! In order to defeat the dragon, you used your " + weapon + ". You were wearing the " + head + ", the " + chest + ", and the " + legs + ". You defeated the dragon in " + turnText + " turns . Thanks for playing!"
+        emailText = "Congratulations on beating the dragon! In order to defeat the dragon, you used your " + weapon + ". You were wearing the " + head + ", the " + chest + ", and the " + legs + ". You defeated the dragon in " + turnText + " turns. You were able to retire with " + str(gold) + " gold. Thanks for playing!"
     if(playerHealth <= 0):
-        emailText = "The dragon bested you this time. Your " + weapon + " was unable to save you. You were wearing the " + head + ", the " + chest + ", and the " + legs + " before the dragon burnt them all to ash. The dragon defeated you in " + turnText + " turns. Thanks for playing!"
+        emailText = "The dragon bested you this time. Your " + weapon + " was unable to save you. You were wearing the " + head + ", the " + chest + ", and the " + legs + " before the dragon burnt them all to ash. The dragon defeated you in " + turnText + " turns. The dragon adds " + str(gold) + " gold to its hoard. Thanks for playing!"
     if (userEmail != ""):
-        try:
+        passwordGet()
+#coded by Jared
+def passwordGet():
+    global frame5, passEntry
+    frame5.destroy()
+    frame6 = Frame(newWindow)
+    frame6.pack()
+    passText = StringVar()
+    passEntry = Entry(frame6,textvariable = passText, show = "*")
+    passEntry.grid(row = 1, column = 1)
+    passLabel = Label(frame6, text = "Enter your password: ")
+    passLabel.grid(row = 1)
+    passButton = Button(frame6, text = "Send the email", command = sendEmail)
+    passButton.grid(row = 1, column = 2)
+#coded by Jared
+def sendEmail():
+    global passEntry, userEmail, emailText
+    password = passEntry.get()
+    try:
                 gameserver  =  smtplib.SMTP('smtp.gmail.com',587)
                 gameserver.ehlo()
                 gameserver.starttls()
-                password = getpass.getpass("Enter your password: ")
                 gameserver.login( userEmail, password) # the user sends the results to themselves
-                gameserver.sendmail( userEmail, userEmail, emailText) 
+                gameserver.sendmail( userEmail, userEmail, emailText)
                 gameserver.quit()
-        except:
+    except:
                 print("There was a problem")
-                
+    Endgame()
+    #coded by Jared
+def Endgame():
+    newWindow.destroy()
+    player.pause()
+#coded by Jared
 def bossFight():
     frame3.pack_forget()
     goldLabel.pack_forget()
@@ -114,7 +124,11 @@ def bossFight():
     spAttack.grid(row = 2, column = 2)
     dodge = Button(frame4, text = "Dodge", command = dodging)
     dodge.grid(row = 2, column = 3)
-    
+    fightMusic = pyglet.media.load('bossFight.wav')
+    global player
+    player.queue(fightMusic)
+    player.next_source()
+#coded by Jared
 def dragonAttack():
     global head, chest, legs, playerHealth, healthAmt, healthLabel
     defenseBonus = 0
@@ -142,6 +156,7 @@ def dragonAttack():
     healthLabel = Label(frame4, textvariable = healthAmt)
     if(playerHealth <=0):
         gameOver()
+#coded by Jared
 def weakAttack():
     global dragonHealth,frame4,dHealthLabel,dHealthAmt, weapon, turnNumber, turnCount, turnLabel
     attackBonus = 1
@@ -149,6 +164,12 @@ def weakAttack():
         attackBonus = 1.25
     dragonHealth = dragonHealth - (8 * attackBonus)
     messagebox.showinfo( "Weak Attack", "You hit the dragon using your " + weapon)
+    if (weapon == "Enchanted Bow" or weapon == "Compound Bow"):
+        winsound.PlaySound('rangerSp', winsound.SND_ASYNC)
+    if (weapon == "Enchanted Sword" or weapon == "Broadsword"):
+        winsound.PlaySound('warriorSp', winsound.SND_ASYNC)
+    if (weapon == "waterstaff" or weapon == "firestaff"):
+        winsound.PlaySound('wizardSp', winsound.SND_ASYNC)
     dHealthAmt.set("Dragon Health: " + str(dragonHealth))
     dHealthLabel = Label(frame4, textvariable = dHealthAmt)
     if (dragonHealth <= 0):
@@ -159,6 +180,7 @@ def weakAttack():
     turnCount.set("Turn Number: " + str(turnNumber))
     turnLabel = Label(frame4, textvariable = turnCount)
     frame4.update_idletasks()
+#coded by Jared
 def strongAttack():
     global dragonHealth,frame4,dHealthLabel,dHealthAmt, weapon, actionPoints, apAmt, apLabel, turnNumber, turnCount, turnLabel
     attackBonus = 1
@@ -170,6 +192,12 @@ def strongAttack():
         dragonHealth = dragonHealth - (20 * attackBonus)
         actionPoints = actionPoints - 2.5
         messagebox.showinfo( "Strong Attack", "You prepare yourself and hit the dragon with a mighty blow using your " + weapon)
+        if (weapon == "Enchanted Bow" or weapon == "Compound Bow"):
+            winsound.PlaySound('rangerSp', winsound.SND_ASYNC)
+        if (weapon == "Enchanted Sword" or weapon == "Broadsword"):
+            winsound.PlaySound('warriorSp', winsound.SND_ASYNC)
+        if (weapon == "waterstaff" or weapon == "firestaff"):
+            winsound.PlaySound('wizardSp', winsound.SND_ASYNC)
     dHealthAmt.set("Dragon Health: " + str(dragonHealth))
     dHealthLabel = Label(frame4, textvariable = dHealthAmt)
     apAmt.set("Action Points: " + str(actionPoints))
@@ -182,6 +210,7 @@ def strongAttack():
     turnCount.set("Turn Number: " + str(turnNumber))
     turnLabel = Label(frame4, textvariable = turnCount)
     frame4.update_idletasks()
+#coded by Jared
 def specialAttack():
     global dragonHealth,frame4,dHealthLabel,dHealthAmt, weapon, actionPoints, apAmt, apLabel, turnNumber, turnCount, turnLabel
     attackBonus = 1
@@ -194,10 +223,13 @@ def specialAttack():
         actionPoints = actionPoints - 5
         if (weapon == "Enchanted Bow" or weapon == "Compound Bow"):
             messagebox.showinfo( "Special Attack", "You shoot the dragon in the eye! It roars in agony!")
+            winsound.PlaySound('rangerSp', winsound.SND_ASYNC)
         if (weapon == "Enchanted Sword" or weapon == "Broadsword"):
             messagebox.showinfo("Special Attack", "You slice off one of the dragons claws! It roars in agony!")
+            winsound.PlaySound('warriorSp', winsound.SND_ASYNC)
         if (weapon == "waterstaff" or weapon == "firestaff"):
             messagebox.showinfo("Special Attack", "You charge up your power and blast the dragon with your magic! It roars in agony!")
+            winsound.PlaySound('wizardSp', winsound.SND_ASYNC)
     dHealthAmt.set("Dragon Health: " + str(dragonHealth))
     dHealthLabel = Label(frame4, textvariable = dHealthAmt)
     apAmt.set("Action Points: " + str(actionPoints))
@@ -210,6 +242,7 @@ def specialAttack():
     turnCount.set("Turn Number: " + str(turnNumber))
     turnLabel = Label(frame4, textvariable = turnCount)
     frame4.update_idletasks()
+#coded by Jared
 def dodging():
     global dragonHealth,frame4,dHealthLabel,dHealthAmt, turnNumber, turnCount, turnLabel
     dodgeChance = [1,2]
@@ -228,6 +261,7 @@ def dodging():
     turnCount.set("Turn Number: " + str(turnNumber))
     turnLabel = Label(frame4, textvariable = turnCount)
     frame4.update_idletasks()
+#showInventory designed by Jared
 def showInventory():
     global frame3
     frame3 = Frame(newWindow)
@@ -255,6 +289,7 @@ def showInventory():
     weaponLabel.pack(side=TOP)
     bossButton = Button(frame3, text = "Ready to fight!", command = bossFight)
     bossButton.pack(side = BOTTOM)
+#inventory designed by Devon
 def inventory(item, choose):
     global head, chest, legs, weapon
     if(item == "staff"):
@@ -341,17 +376,19 @@ def inventory(item, choose):
         elif(choose == 2):
             winsound.PlaySound('equipitem.wav', winsound.SND_ASYNC)
             chest = "Archer's Shirt"
-
+#All gold functions designed by Jared
 def resetGold(item, choose):
     spentGold()
     reset(item, choose)
 def spentGold():
     global gold
     gold = gold - 250
+#reset designed by Siddarth
 def ClearScreen():
     button1.destroy()
     button2.destroy()
     button3.destroy()
+#reset designed by Siddarth and Devon
 def reset(itemchosen, choose):
     goldLabel.destroy()
     frame2.pack_forget()
@@ -364,6 +401,7 @@ def reset(itemchosen, choose):
         WarriorCreateDoors(numberOfDoors2)
     if (choice == 3):
         RangerCreateDoors(numberOfDoors2)
+#createRooms designed by Siddarth and Devon
 def createRooms(item1, item2, itemChoice):
     global frame2
     frame2 = Frame(newWindow)
@@ -374,12 +412,6 @@ def createRooms(item1, item2, itemChoice):
     photoImage2 = ImageTk.PhotoImage(pathToImage2)
     goldLabel.pack(side = TOP)
     selectedItem = itemChoice
-    #label1 = Label(frame1,image = photoImage1)
-    #label1.image = photoImage1
-    #label1.pack(side = RIGHT)
-    #label2 = Label(frame1,image= photoImage2)
-    #label2.image = photoImage2
-    #label2.pack(side = RIGHT)
     if gold >= 250:
         button1 = Button(frame2, image = photoImage1, text = "Gold Price: 250", compound = BOTTOM, command = lambda: resetGold(selectedItem, 1))
         button1.photoImage1 = photoImage1
@@ -387,11 +419,8 @@ def createRooms(item1, item2, itemChoice):
     button2 = Button(frame2, image = photoImage2, text = "Gold Price: 0", compound = BOTTOM ,command = lambda: reset(selectedItem, 2))
     button2.photoImage2 = photoImage2
     button2.pack(side = RIGHT)
-    #costlabel = Label(frame1, text = "Gold Price: 0")
-    #costlabel.pack(side = LEFT)
-    #costlabel2 = Label(frame1, text = "Gold Price: 250")
-    #costlabel2.pack(side = RIGHT)
-    
+
+#Rooms designed by Siddarth and Devon   
 def staffRoom():
     createRooms("waterstaff1.jpg", "fireStaff1.jpg", "staff")
 def topRoom():
@@ -421,7 +450,7 @@ def torsoRoom():
 
 randomArray = [1,2,3,4]
 randomGold = [1,2,3,4]
-
+#DoorUpdate Functions Designed by Siddarth
 def WizardDoorUpdate():
     numberOfDoors1 = numberOfTimesDecremented
     global gold
@@ -467,7 +496,6 @@ def WizardDoorUpdate():
         frame.pack_forget()
         randomArray.remove(randomNumber)
         wizardHatRoom()
-
 def WarriorDoorUpdate():
     numberOfDoors1 = numberOfTimesDecremented
     global gold
@@ -515,7 +543,6 @@ def WarriorDoorUpdate():
         frame.pack_forget()
         randomArray.remove(randomNumber)
         helmRoom()
-
 def RangerDoorUpdate():
     numberOfDoors1 = numberOfTimesDecremented
     global gold
@@ -563,7 +590,7 @@ def RangerDoorUpdate():
         frame.pack_forget()
         randomArray.remove(randomNumber)
         RangerHatRoom()
-
+#Door functions designed by Siddarth
 def WizardDoor():
     ClearScreen()
     global choice
@@ -585,7 +612,7 @@ def RangerDoor():
     messagebox.showinfo("ranger door", "You have entered the Ranger door! Choose another door and this will lead you to either the hat door, the torso door, the leggings door, or the bow door.")
     winsound.PlaySound('door.wav', winsound.SND_ASYNC)
     RangerCreateDoors(4)
-
+#Create Doors Functions designed by Siddarth
 def WizardCreateDoors(numberOfDoors):
     goldamount = StringVar()
     goldamount.set("Gold: " + str(gold))
@@ -656,9 +683,11 @@ def RangerCreateDoors(numberOfDoors):
         rangerButton.pack(side = RIGHT)
         numberOfDoors = numberOfDoors - 1
         numberOfTimesDecremented = numberOfTimesDecremented + 1
-source = pyglet.media.load('gamemusic.wav')
+#coded by Siddarth
+casualBackground = pyglet.media.load('gamemusic.wav')
+global player
 player = pyglet.media.Player()
-player.queue(source)
+player.queue(casualBackground)
 player.play()
 def endMusic():
     newWindow.destroy()
@@ -666,6 +695,7 @@ def endMusic():
 newWindow = Tk()
 newWindow.protocol("WM_DELETE_WINDOW",endMusic)
 mytext = StringVar()
+gold = 500
 goldamount = StringVar()
 goldamount.set("Gold: " + str(gold))
 global goldLabel
@@ -690,5 +720,3 @@ button2.pack(side = RIGHT)
 button3 = Button(newWindow, text = "RANGER", image = rangerImg2, compound = BOTTOM, command = RangerDoor)
 button3.rangerImg2 = rangerImg2
 button3.pack(side = RIGHT)
-
-            
