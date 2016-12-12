@@ -16,7 +16,9 @@ class Window(Frame):
     def gamequit(self):
         exit()
 
+    def showImage(self):
+        Image.open
 root = Tk()
-root.geometry("400x400")
+root.geometry("500x400")
 app = Window(root)
 root.mainloop()
