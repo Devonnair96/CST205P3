@@ -9,9 +9,9 @@ Runs in Python 3 on Windows.
 
 REQUIRED LIBRARIES
 ------------------
-*Pillow 3.3.1
-*pyglet 1.2.4
-*Wave 0.0.2
+* Pillow 3.3.1
+* pyglet 1.2.4
+* Wave 0.0.2
 
 INSTALLING
 ----------
