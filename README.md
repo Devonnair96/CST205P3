@@ -40,3 +40,6 @@ MAINTAINERS
 * Devon Nair - https://github.com/Devonnair96 (Inventory System, Modifications to Create Rooms)
 * Siddarth Krishnan - https://github.com/siddarthk123 (Room System Design)
 * Ian Devito - https://github.com/IanDevito123 (Sound Design and Implementation)
+NOTES
+----------
+* All music and images are used under fair use. This group does not own any of the sound effects or the images of the warrior, wizard, ranger, door, or dragon. All other images are drawn by Siddarth.
